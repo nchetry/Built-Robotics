@@ -20,10 +20,11 @@ Idea:
 Time and Space Complexity:
     N = number of words in the text file
     L = word length
-    TC: O(N * L): Every word is read, a freq counter of L chs is
-        built and compared against the freq input counter.
-    SC: O(1) only 2 fixed-size freq arrays (of size 26 chs) are kept in
-        memory. The word list is streamed line-by-line. No
+    TC: O(N * L): Every word is read and iterated over (L chs)
+    to fill its freq counter. It is then compared against
+    the input counter.
+    SC: O(1) only 2 fixed size freq arrays (of size 26 chs) are kept in
+        memory. The word list is streamed line by line. No
         additional storage needed.
 """
 
@@ -31,7 +32,7 @@ import sys
 
 
 def build_word_freq(word: str) -> list[int]:
-    """Build a character frequency arr for the parameter word.
+    """Build a character frequency arr for the given word.
 
     Args:
         word: A lowercase alpha str.
@@ -48,12 +49,12 @@ def build_word_freq(word: str) -> list[int]:
 def is_sub_anagram(word_freq: list[int], input_freq: list[int]) -> bool:
     """Determine if word_freq is a sub-anagram of input_freq.
 
-    A sub-anagram uses some or all of the available letters. Each letter
+    A sub-anagram uses some (or all) of the available letters. Each letter
     in the word can't appear more times than it does in the input.
 
     Args:
-        word_freq: Frequency array of the read word.
-        input_freq: Frequency array of the user's input word.
+        word_freq: Frequency arr of the read word.
+        input_freq: Frequency arr of the user's input word.
 
     Returns:
         True if the word is a sub-anagram of the input word.
@@ -70,7 +71,7 @@ def find_words(file_path: str, input_word: str, input_freq: list[int]) -> None:
     Args:
         file_path: Path to a text file. Has one word per line.
         input_word: The normalized input word given by the user.
-        input_freq: Frequency array of the input word.
+        input_freq: Frequency arr of the input word.
     """
     with open(file_path) as f:
         for line in f:
